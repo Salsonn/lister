@@ -56,9 +56,7 @@ fn main() -> io::Result<()> {
     }
 
     let listSplit = rawList.split(",");
-    // let mut listIn:Vec<String> = ["None"., "None".];
 
-    // let listIn = listSplit.map(str::trim);
     let mut listIn:Vec<String> = Vec::new();
     for listItem in listSplit {
         listIn.push(listItem.trim().to_string());
@@ -69,34 +67,12 @@ fn main() -> io::Result<()> {
     
     execute!(stdout(), LeaveAlternateScreen)?;
 
-    // for val in listIn {
-    //     println!("value is: {}",val);
-    // }
-
-    // println!("Running from: {}", args[0]);
-    // println!("Searching for {}", args[0]);
-    // println!("In file {}", args[0]);
     Ok(())
 }
-
-// pub fn read_char() -> std::io::Result<char> {
-//     loop {
-//         if let Ok(Event::Key(KeyEvent {
-//             code: KeyCode::Char(c),
-//             // kind: KeyEventKind::Press,
-//             modifiers: _,
-//             // state: _,
-//         })) = event::read()
-//         {
-//             return Ok(c);
-//         }
-//     }
-// }
 
 #[allow(non_snake_case)]
 fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, max:i32, header:String, footer:String) -> io::Result<(Vec<String>)> {
     let out:Vec<String> = Vec::new();
-    // START OF LISTER
     //Prepwork
     let listLen = list.len();
     let looper:bool = true;
@@ -140,7 +116,6 @@ fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, max:i32, header:Strin
                 } else {
                     queue!(stdout(), style::SetForegroundColor(hl))?;
                 }
-                // let itemToPrint:String = listIn[targetIndex];
                 queue!(stdout(), style::Print(list[targetIndex].to_string()), cursor::MoveToNextLine(1))?;
             } else {
                 queue!(stdout(), cursor::MoveToNextLine(1))?;
@@ -148,14 +123,15 @@ fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, max:i32, header:Strin
         }
         queue!(
             stdout(),
-            style::Print("██████████████████████████"),
+            style::Print("██████████████████████████ Rows: "),
+            style::Print(rows.to_string()),
+            cursor::MoveToNextLine(1),
             style::Print(footer.to_string())
         )?;
 
         //Input
-        // println!(read_char().unwrap_or('r').to_string());
         let keyIn = read()?;
-        println!("Rows: {}", rows.to_string());
+        println!();
         if  keyIn == Event::Key(KeyCode::Up.into()) {
             caret = (caret - 1).clamp(0, rows.into());
         } else if keyIn == Event::Key(KeyCode::Down.into()) {
@@ -169,17 +145,6 @@ fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, max:i32, header:Strin
         } else if keyIn == Event::Key(KeyCode::Enter.into()) {
             break;
         }
-        // match read(_char().unwrap_or('r')) {
-        // match keyIn {
-            // Event::Key(KeyCode::Char('c').into()) => cursorPos -= 1,
-            // Up::KeyCode => cursorPos -= 1,
-            // Down::KeyCode => cursorPos += 1,
-            // ' ' => toggled[cursorPos] = !toggled[cursorPos],
-            // Enter::KeyCode => looper = false,
-            //  _  => continue
-        // };
-        //Post-input
-        // thread::sleep(time::Duration::from_secs(4));
     }
     Ok(out,)
 }
