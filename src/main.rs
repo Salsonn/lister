@@ -71,7 +71,8 @@ fn main() -> io::Result<()> {
 }
 
 #[allow(non_snake_case)]
-fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, max:i32, header:String, footer:String) -> io::Result<(Vec<String>)> {
+#[allow(unused_parens)]
+fn lister(list:&Vec<String>, fg:Color, bg:Color, hl:Color, _max:i32, header:String, footer:String) -> io::Result<(Vec<String>)> {
     let out:Vec<String> = Vec::new();
     //Prepwork
     let listLen = list.len();
@@ -192,14 +193,14 @@ Color flags:
     --highlight [Highlight Color]
         Default: Green
     Available colors:
-        DarkGrey	Black
+        DarkGrey    Black
         Red	        DarkRed
-        Green	    DarkGreen
-        Yellow	    DarkYellow
-        Blue	    DarkBlue
+        Green       DarkGreen
+        Yellow      DarkYellow
+        Blue        DarkBlue
         Magenta	    DarkMagenta
-        Cyan	    DarkCyan
-        White	    Grey
+        Cyan        DarkCyan
+        White       Grey
 Technical flags:
     --header [Header text]
     --footer [Footer text]
